@@ -1,3 +1,5 @@
+from typing import Any
+
 from fastapi import Request, status
 from fastapi.exceptions import RequestValidationError
 from fastapi.responses import ORJSONResponse
@@ -8,10 +10,16 @@ from cropapi.core.logging import get_logger, request_id_ctx
 logger = get_logger(__name__)
 
 
-class AppError(Exception):
-    """Base class for domain errors with a stable error code."""
 
-    def __init__(self, code: str, message: str, status_code: int = 400, details: dict | None = None):
+
+class AppError(Exception):
+    def __init__(
+        self,
+        code: str,
+        message: str,
+        status_code: int = 400,
+        details: dict[str, Any] | None = None,
+    ):
         self.code = code
         self.message = message
         self.status_code = status_code
@@ -19,7 +27,7 @@ class AppError(Exception):
         super().__init__(message)
 
 
-def _error_body(code: str, message: str, details: dict | None = None) -> dict:
+def _error_body(code: str, message: str, details: dict[str, Any] | None = None) -> dict[str, Any]:
     return {
         "error": {
             "code": code,
@@ -43,9 +51,11 @@ async def validation_error_handler(
 ) -> ORJSONResponse:
     logger.warning("validation_error", errors=exc.errors())
     return ORJSONResponse(
-        status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
-        content=_error_body("validation_error", "Request validation failed", {"errors": exc.errors()}),
-    )
+    status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+    content=_error_body(
+        "validation_error", "Request validation failed", {"errors": exc.errors()}
+    ),
+)
 
 
 async def http_exception_handler(

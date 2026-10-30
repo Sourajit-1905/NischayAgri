@@ -48,3 +48,25 @@ Four `PredictionResponse` examples (one per `Decision`) and three `AdviceRespons
 ### `apps/api` scaffold
 
 The `apps/api` scaffold itself — `pyproject.toml`, `config.py`, `core/logging.py`, `core/errors.py`, `core/middleware.py`.
+
+# PHASE 2.2 — Data Layer and Evaluation Protocol (`ml/`)
+
+## What this phase does
+
+(as before) loaders for PlantVillage/PlantDoc/FieldPlant, unified label-space mapping, leakage-free DVC-tracked splits, four evaluation sets, and a data sheet.
+
+## Implementation Order, and Why
+
+1. **`ml/pyproject.toml`** — nothing else can be installed or imported without this first.
+2. **`configs/data/{plantvillage,plantdoc,fieldplant}.yaml`** — defines each dataset’s `root_dir`, raw structure, and class-name conventions; the loaders in step 4 read these, so the configs must exist first.
+3. **`src/cropml/data/label_space.yaml`** + **`label_space.py`** — the unified in-domain/shared/unseen-in-training mapping all three loaders normalize into. Loaders depend on this, so it comes before them, not after.
+4. **`src/cropml/data/loaders/base.py`**, then **`plantvillage.py`**, **`plantdoc.py`**, **`fieldplant.py`** — the common loader interface first, then each dataset-specific implementation against it and against `label_space.py`.
+5. **`src/cropml/data/dedup.py`** — perceptual-hash near-duplicate clustering, needed by splitting (step 6) for datasets without reliable source-plant metadata.
+6. **`src/cropml/data/splitting.py`** — the leakage-free group splitter; depends on loaders (step 4) and dedup (step 5).
+7. **`src/cropml/data/manifest.py`** — persists/loads split manifests; depends on splitting’s output shape (step 6).
+8. **`src/cropml/data/ood_sets.py`** and **`corruptions.py`** — the four evaluation sets; depend on loaders and the label space, independent of each other, built after the core split logic is solid.
+9. **`scripts/build_splits.py`** — the CLI entrypoint tying loaders → dedup → splitting → manifest together; comes after all the pieces it orchestrates exist.
+10. **`configs/splits/default.yaml`** — the Hydra config `build_splits.py` reads (seed, ratios, grouping strategy); written alongside or just after the script so the two are developed against each other.
+11. **`tests/conftest.py`**, then **`test_dedup.py`**, **`test_splitting.py`**, **`test_leakage.py`** — tests last, against the finished implementation, with the leakage test being the phase’s actual “done when” gate.
+12. **`docs/data-sheets/crop-disease-datasets.md`** — written last since it documents the final class counts and licensing once the label space and loaders are settled.
+

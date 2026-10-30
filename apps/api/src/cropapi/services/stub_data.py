@@ -1,10 +1,11 @@
 import json
 from functools import lru_cache
 from pathlib import Path
+from typing import Any
 
+from cropapi.schemas.advice import AdviceResponse
 from cropapi.schemas.common import AdviceMode, Decision
 from cropapi.schemas.predict import PredictionResponse
-from cropapi.schemas.advice import AdviceResponse
 
 # contracts/ lives at the repo root, three levels above this file:
 # apps/api/src/cropapi/services/stub_data.py -> repo_root/contracts/examples
@@ -35,11 +36,14 @@ _DECISION_TO_ADVICE_MODE: dict[Decision, AdviceMode] = {
 }
 
 
+
+
 @lru_cache
-def _load_json(filename: str) -> dict:
+def _load_json(filename: str) -> dict[str, Any]:
     path = _CONTRACTS_EXAMPLES / filename
     with path.open("r", encoding="utf-8") as f:
-        return json.load(f)
+        data: dict[str, Any] = json.load(f)
+        return data
 
 
 def get_stub_prediction(decision: Decision) -> PredictionResponse:

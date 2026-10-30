@@ -61,7 +61,11 @@ async def test_live_predict_response_conforms_to_schema(client):
 
     schema = _load_schema("predict_response.schema.json")
     resolver = _resolver_for(schema)
-    fake_jpeg = bytes.fromhex("ffd8ffe000104a46494600010100000100010000ffdb004300") + b"\x00" * 64 + bytes.fromhex("ffd9")
+    fake_jpeg = (
+        bytes.fromhex("ffd8ffe000104a46494600010100000100010000ffdb004300")
+        + b"\x00" * 64
+        + bytes.fromhex("ffd9")
+    )
     files = {"image": ("leaf.jpg", io.BytesIO(fake_jpeg), "image/jpeg")}
     resp = await client.post("/v1/predict", files=files)
     jsonschema.validate(instance=resp.json(), schema=schema, resolver=resolver)

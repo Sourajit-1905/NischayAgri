@@ -1,3 +1,5 @@
+from typing import Any
+
 from fastapi import APIRouter
 
 router = APIRouter()
@@ -13,8 +15,10 @@ _SUPPORTED_DISEASES = [
 ]
 
 
+
+
 @router.get("/meta")
-async def get_meta() -> dict:
+async def get_meta() -> dict[str, Any]:
     return {
         "model_version": "cropnet-v0.3.1",
         "supported_crops": _SUPPORTED_CROPS,
