@@ -45,3 +45,6 @@ The JSON Schema files this references:
 
 Four `PredictionResponse` examples (one per `Decision`) and three `AdviceResponse` examples (one per `AdviceMode`). These feed both the MSW mocks (Phase 1.2) and the API stub services (Phase 2.1), so they need to be realistic and internally consistent — e.g. the `ABSTAIN_EXPERT` advice example should use the same crop/disease as the `ABSTAIN_EXPERT` predict example.
 
+### `apps/api` scaffold
+
+The `apps/api` scaffold itself — `pyproject.toml`, `config.py`, `core/logging.py`, `core/errors.py`, `core/middleware.py`.
