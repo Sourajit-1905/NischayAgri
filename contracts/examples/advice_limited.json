@@ -1,0 +1,20 @@
+{
+  "mode": "LIMITED",
+  "summary": "The diagnosis has low confidence, so only general guidance is provided.",
+  "sections": [
+    {
+      "title": "General guidance",
+      "body": "Isolate the affected plant if possible and monitor for spreading symptoms over the next few days. Avoid applying treatment based on this result alone."
+    }
+  ],
+  "citations": [
+    {
+      "id": "c1",
+      "title": "General Leaf Disease Monitoring Practices",
+      "source": "Agricultural Extension Service",
+      "url": "https://extension.example.edu/leaf-disease-monitoring",
+      "snippet": "When diagnosis is uncertain, growers are advised to monitor rather than treat prematurely."
+    }
+  ],
+  "safety_notice": "Confidence in this result is low. This guidance is general and does not replace an expert diagnosis. No treatment dosages are provided."
+}

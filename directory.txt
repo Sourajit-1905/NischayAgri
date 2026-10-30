@@ -1,0 +1,87 @@
+NischayAgri/
+├── README.md
+├── LICENSE
+├── Makefile                      # web-dev | api-dev | ml-train | reproduce | up
+├── .editorconfig
+├── .gitignore
+├── .pre-commit-config.yaml
+├── .github/
+│   ├── workflows/                # ci-web.yml, ci-api.yml, ci-ml.yml, release.yml
+│   ├── CODEOWNERS
+│   └── PULL_REQUEST_TEMPLATE.md
+├── contracts/                    # single source of truth for the API
+│   ├── openapi.yaml
+│   ├── schemas/
+│   └── examples/                 # one JSON per decision action and advice mode
+├── apps/
+│   ├── web/                      # Stage 1
+│   │   ├── package.json
+│   │   ├── vite.config.ts
+│   │   ├── tsconfig.json
+│   │   ├── Dockerfile
+│   │   ├── .env.example
+│   │   ├── public/               # manifest, icons, locales/
+│   │   ├── e2e/                  # Playwright
+│   │   └── src/
+│   │       ├── app/              # router, providers, error boundaries
+│   │       ├── features/
+│   │       │   ├── diagnosis/    # capture/, result/
+│   │       │   ├── advisor/
+│   │       │   ├── history/
+│   │       │   └── about-uncertainty/
+│   │       ├── components/ui/
+│   │       ├── lib/              # generated api client, image utils, i18n
+│   │       ├── hooks/
+│   │       ├── mocks/            # MSW handlers and scenarios
+│   │       ├── types/
+│   │       └── styles/
+│   └── api/                      # Stage 2
+│       ├── pyproject.toml
+│       ├── Dockerfile
+│       ├── src/cropapi/
+│       │   ├── main.py
+│       │   ├── config.py
+│       │   ├── api/v1/           # predict.py, advice.py, health.py, meta.py
+│       │   ├── core/             # logging, errors, security, rate limiting, middleware
+│       │   ├── schemas/
+│       │   ├── services/         # quality, inference, decision, advisor
+│       │   └── adapters/         # model_runtime/, llm/, vectorstore/
+│       └── tests/                # unit/, contract/, integration/
+├── ml/
+│   ├── pyproject.toml
+│   ├── configs/                  # Hydra: data/, model/, uncertainty/, experiment/
+│   ├── src/cropml/
+│   │   ├── data/                 # loaders, label space, splits, corruptions
+│   │   ├── models/               # backbones, hierarchical and severity heads
+│   │   ├── uncertainty/          # calibration, MC-dropout, ensembles, conformal
+│   │   ├── ood/                  # MSP, energy, Mahalanobis, ODIN
+│   │   ├── decision/             # cost-sensitive policy
+│   │   ├── explain/              # Grad-CAM, faithfulness checks
+│   │   ├── evaluation/           # metrics, tables, figures
+│   │   └── export/               # ONNX export and parity tests
+│   ├── scripts/
+│   ├── notebooks/
+│   └── tests/
+├── rag/
+│   ├── sources/manifest.yaml
+│   ├── ingest/
+│   └── eval/
+├── research/
+│   ├── research_gaps.md
+│   ├── literature_audit/         # rubric.yaml, papers.csv, summarise.py
+│   └── paper/
+├── data/                         # gitignored, DVC-tracked: raw/ interim/ processed/ splits/
+├── artifacts/                    # versioned model manifests (weights via DVC or registry)
+├── infra/
+│   ├── docker-compose.yml
+│   └── nginx/
+├── docs/
+│   ├── architecture.md
+│   ├── frontend.md
+│   ├── api-expectations.md
+│   ├── severity.md
+│   ├── adr/
+│   ├── data-sheets/
+│   ├── model-cards/
+│   └── runbooks/
+└── scripts/

@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "advice_request.schema.json",
+  "title": "AdviceRequest",
+  "type": "object",
+  "required": ["request_id", "crop", "disease", "severity", "confidence", "decision"],
+  "properties": {
+    "request_id": { "type": "string", "format": "uuid" },
+    "crop": { "type": "string" },
+    "disease": { "type": "string" },
+    "severity": { "$ref": "common.schema.json#/$defs/SeverityLevel" },
+    "confidence": { "type": "number", "minimum": 0, "maximum": 1 },
+    "decision": { "$ref": "common.schema.json#/$defs/Decision" },
+    "region": {
+      "type": "string",
+      "description": "Optional, for retrieval filtering and the metadata-prior feature"
+    }
+  }
+}

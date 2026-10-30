@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "common.schema.json",
+  "title": "Common",
+  "$defs": {
+    "Decision": {
+      "type": "string",
+      "enum": ["ACCEPT", "ABSTAIN_RETAKE", "ABSTAIN_EXPERT", "REJECT_UNKNOWN"]
+    },
+    "SeverityLevel": {
+      "type": "string",
+      "enum": ["none", "low", "moderate", "high"]
+    },
+    "AdviceMode": {
+      "type": "string",
+      "enum": ["FULL", "LIMITED", "EXPERT_REFERRAL"]
+    }
+  }
+}

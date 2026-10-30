@@ -1,0 +1,23 @@
+{
+  "request_id": "5f7a9b1c-6d8e-4f0a-8b1c-2d3e4f5a6b7c",
+  "model_version": "cropnet-v0.3.1",
+  "crop": { "label": "unknown", "confidence": 0.12 },
+  "disease": {
+    "label": "unknown",
+    "confidence": 0.09,
+    "top_k": []
+  },
+  "severity": { "level": "none", "confidence": 0.0 },
+  "uncertainty": {
+    "calibrated_confidence": 0.1,
+    "entropy": 2.14,
+    "method": "temperature_scaling"
+  },
+  "ood": { "score": 0.94, "is_ood": true },
+  "decision": {
+    "action": "REJECT_UNKNOWN",
+    "reason": "ood_not_a_supported_crop_or_leaf"
+  },
+  "image_quality": { "blur": 0.1, "lighting": 0.15, "framing": 0.4, "usable": true },
+  "explanation": { "heatmap_png_base64": null }
+}

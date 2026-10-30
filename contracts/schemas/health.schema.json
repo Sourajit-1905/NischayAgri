@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "health.schema.json",
+  "title": "HealthResponse",
+  "type": "object",
+  "required": ["status"],
+  "properties": {
+    "status": { "type": "string", "enum": ["ok", "degraded", "down"] },
+    "model_loaded": { "type": "boolean" },
+    "version": { "type": "string" }
+  }
+}

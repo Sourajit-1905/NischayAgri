@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "meta.schema.json",
+  "title": "MetaResponse",
+  "type": "object",
+  "required": ["model_version", "supported_crops", "supported_diseases"],
+  "properties": {
+    "model_version": { "type": "string" },
+    "supported_crops": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "supported_diseases": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["crop", "disease"],
+        "properties": {
+          "crop": { "type": "string" },
+          "disease": { "type": "string" }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "mode": "EXPERT_REFERRAL",
+  "summary": "This result requires an expert's review before any action is taken.",
+  "sections": [
+    {
+      "title": "Next steps",
+      "body": "Contact your local agricultural extension office or a plant pathologist. Bring or send a clear photo along with details on when symptoms were first noticed."
+    }
+  ],
+  "citations": [],
+  "safety_notice": "No treatment advice is given for this result. Please consult a qualified expert before taking any action."
+}

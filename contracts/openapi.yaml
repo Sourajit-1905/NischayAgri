@@ -1,0 +1,131 @@
+openapi: 3.1.0
+info:
+  title: Crop Uncertainty Platform API
+  description: >
+    Uncertainty-aware crop disease diagnosis API. Returns crop, disease,
+    severity, calibrated confidence, an OOD score and a decision for a
+    leaf image. A separate advisor endpoint provides RAG-grounded
+    guidance; it never diagnoses.
+  version: "1.0.0"
+  contact:
+    name: Group 44
+servers:
+  - url: /v1
+    description: Version 1
+
+tags:
+  - name: predict
+    description: Image-based diagnosis
+  - name: advice
+    description: Evidence-grounded guidance
+  - name: meta
+    description: Health and metadata
+
+paths:
+  /health:
+    get:
+      operationId: getHealth
+      tags: [meta]
+      summary: Liveness/readiness probe
+      responses:
+        "200":
+          description: Service is healthy
+          content:
+            application/json:
+              schema:
+                $ref: "./schemas/health.schema.json"
+
+  /meta:
+    get:
+      operationId: getMeta
+      tags: [meta]
+      summary: Model version and supported label space
+      responses:
+        "200":
+          description: Metadata about the currently loaded model
+          content:
+            application/json:
+              schema:
+                $ref: "./schemas/meta.schema.json"
+
+  /predict:
+    post:
+      operationId: postPredict
+      tags: [predict]
+      summary: Diagnose a leaf image
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required: [image]
+              properties:
+                image:
+                  type: string
+                  format: binary
+                  description: JPEG or PNG leaf image, max 10 MB
+      responses:
+        "200":
+          description: Prediction produced (decision indicates confidence level)
+          content:
+            application/json:
+              schema:
+                $ref: "./schemas/predict_response.schema.json"
+        "400":
+          description: Malformed or unreadable upload
+          content:
+            application/json:
+              schema:
+                $ref: "./schemas/error.schema.json"
+        "413":
+          description: Image exceeds size limit
+          content:
+            application/json:
+              schema:
+                $ref: "./schemas/error.schema.json"
+        "422":
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: "./schemas/error.schema.json"
+
+  /advice:
+    post:
+      operationId: postAdvice
+      tags: [advice]
+      summary: Get RAG-grounded guidance for a prior prediction
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "./schemas/advice_request.schema.json"
+      responses:
+        "200":
+          description: Advisor response (mode depends on the decision)
+          content:
+            application/json:
+              schema:
+                $ref: "./schemas/advice_response.schema.json"
+        "422":
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: "./schemas/error.schema.json"
+
+components:
+  schemas:
+    Decision:
+      type: string
+      enum: [ACCEPT, ABSTAIN_RETAKE, ABSTAIN_EXPERT, REJECT_UNKNOWN]
+      description: >
+        ACCEPT: diagnosis is presentable as-is.
+        ABSTAIN_RETAKE: image quality insufficient, ask user to retake.
+        ABSTAIN_EXPERT: model is uncertain, show candidates only, refer to expert.
+        REJECT_UNKNOWN: not a supported crop/disease, or not a leaf at all.
+    AdviceMode:
+      type: string
+      enum: [FULL, LIMITED, EXPERT_REFERRAL]

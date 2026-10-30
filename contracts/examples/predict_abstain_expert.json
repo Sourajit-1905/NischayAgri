@@ -1,0 +1,27 @@
+{
+  "request_id": "3d5e7f9a-4b6c-4d8e-9f0a-1b2c3d4e5f6a",
+  "model_version": "cropnet-v0.3.1",
+  "crop": { "label": "potato", "confidence": 0.88 },
+  "disease": {
+    "label": "late_blight",
+    "confidence": 0.48,
+    "top_k": [
+      { "label": "late_blight", "confidence": 0.48 },
+      { "label": "early_blight", "confidence": 0.41 },
+      { "label": "bacterial_wilt", "confidence": 0.07 }
+    ]
+  },
+  "severity": { "level": "high", "confidence": 0.52 },
+  "uncertainty": {
+    "calibrated_confidence": 0.49,
+    "entropy": 1.05,
+    "method": "deep_ensemble"
+  },
+  "ood": { "score": 0.18, "is_ood": false },
+  "decision": {
+    "action": "ABSTAIN_EXPERT",
+    "reason": "low_confidence_ambiguous_top_classes"
+  },
+  "image_quality": { "blur": 0.11, "lighting": 0.09, "framing": 0.07, "usable": true },
+  "explanation": { "heatmap_png_base64": null }
+}

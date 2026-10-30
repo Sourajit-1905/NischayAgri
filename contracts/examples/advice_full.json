@@ -1,0 +1,24 @@
+{
+  "mode": "FULL",
+  "summary": "Moderate early blight detected on tomato. Timely fungicide application and leaf removal should control spread.",
+  "sections": [
+    {
+      "title": "What this means",
+      "body": "Early blight is a fungal disease caused by Alternaria solani, common in warm, humid conditions. Moderate severity indicates visible lesions on multiple leaves but limited spread to stems or fruit so far."
+    },
+    {
+      "title": "Recommended actions",
+      "body": "Remove and destroy affected lower leaves. Apply a labeled fungicide (e.g. chlorothalonil or copper-based) following local guidance. Improve airflow by spacing plants and avoid overhead watering."
+    }
+  ],
+  "citations": [
+    {
+      "id": "c1",
+      "title": "Early Blight of Tomato and Potato",
+      "source": "University Extension Plant Pathology",
+      "url": "https://extension.example.edu/early-blight-tomato",
+      "snippet": "Early blight severity is best managed through cultural controls combined with timely fungicide rotation."
+    }
+  ],
+  "safety_notice": "This guidance is generated from retrieved agricultural sources and does not replace an expert. Always follow local label instructions for any treatment."
+}

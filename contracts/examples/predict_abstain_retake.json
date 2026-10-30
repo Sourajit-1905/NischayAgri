@@ -1,0 +1,27 @@
+{
+  "request_id": "1b3c5d7e-2f4a-4b6c-9d8e-0f1a2b3c4d5e",
+  "model_version": "cropnet-v0.3.1",
+  "crop": { "label": "tomato", "confidence": 0.44 },
+  "disease": {
+    "label": "early_blight",
+    "confidence": 0.31,
+    "top_k": [
+      { "label": "early_blight", "confidence": 0.31 },
+      { "label": "late_blight", "confidence": 0.27 },
+      { "label": "healthy", "confidence": 0.19 }
+    ]
+  },
+  "severity": { "level": "low", "confidence": 0.3 },
+  "uncertainty": {
+    "calibrated_confidence": 0.33,
+    "entropy": 1.42,
+    "method": "temperature_scaling"
+  },
+  "ood": { "score": 0.21, "is_ood": false },
+  "decision": {
+    "action": "ABSTAIN_RETAKE",
+    "reason": "image_quality_insufficient_blur"
+  },
+  "image_quality": { "blur": 0.71, "lighting": 0.22, "framing": 0.18, "usable": false },
+  "explanation": { "heatmap_png_base64": null }
+}
