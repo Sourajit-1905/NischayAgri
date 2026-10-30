@@ -4,34 +4,74 @@
   "title": "PredictionResponse",
   "type": "object",
   "required": [
-    "request_id", "model_version", "crop", "disease", "severity",
-    "uncertainty", "ood", "decision", "image_quality"
+    "request_id",
+    "model_version",
+    "crop",
+    "disease",
+    "severity",
+    "uncertainty",
+    "ood",
+    "decision",
+    "image_quality"
   ],
   "properties": {
-    "request_id": { "type": "string", "format": "uuid" },
-    "model_version": { "type": "string" },
+    "request_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "model_version": {
+      "type": "string"
+    },
     "crop": {
       "type": "object",
-      "required": ["label", "confidence"],
+      "required": [
+        "label",
+        "confidence"
+      ],
       "properties": {
-        "label": { "type": "string" },
-        "confidence": { "type": "number", "minimum": 0, "maximum": 1 }
+        "label": {
+          "type": "string"
+        },
+        "confidence": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        }
       }
     },
     "disease": {
       "type": "object",
-      "required": ["label", "confidence", "top_k"],
+      "required": [
+        "label",
+        "confidence",
+        "top_k"
+      ],
       "properties": {
-        "label": { "type": "string" },
-        "confidence": { "type": "number", "minimum": 0, "maximum": 1 },
+        "label": {
+          "type": "string"
+        },
+        "confidence": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
         "top_k": {
           "type": "array",
           "items": {
             "type": "object",
-            "required": ["label", "confidence"],
+            "required": [
+              "label",
+              "confidence"
+            ],
             "properties": {
-              "label": { "type": "string" },
-              "confidence": { "type": "number", "minimum": 0, "maximum": 1 }
+              "label": {
+                "type": "string"
+              },
+              "confidence": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 1
+              }
             }
           }
         }
@@ -39,18 +79,38 @@
     },
     "severity": {
       "type": "object",
-      "required": ["level", "confidence"],
+      "required": [
+        "level",
+        "confidence"
+      ],
       "properties": {
-        "level": { "$ref": "common.schema.json#/$defs/SeverityLevel" },
-        "confidence": { "type": "number", "minimum": 0, "maximum": 1 }
+        "level": {
+          "$ref": "common.schema.json#/$defs/SeverityLevel"
+        },
+        "confidence": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        }
       }
     },
     "uncertainty": {
       "type": "object",
-      "required": ["calibrated_confidence", "entropy", "method"],
+      "required": [
+        "calibrated_confidence",
+        "entropy",
+        "method"
+      ],
       "properties": {
-        "calibrated_confidence": { "type": "number", "minimum": 0, "maximum": 1 },
-        "entropy": { "type": "number", "minimum": 0 },
+        "calibrated_confidence": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "entropy": {
+          "type": "number",
+          "minimum": 0
+        },
         "method": {
           "type": "string",
           "description": "e.g. temperature_scaling, mc_dropout, deep_ensemble, conformal"
@@ -59,34 +119,72 @@
     },
     "ood": {
       "type": "object",
-      "required": ["score", "is_ood"],
+      "required": [
+        "score",
+        "is_ood"
+      ],
       "properties": {
-        "score": { "type": "number" },
-        "is_ood": { "type": "boolean" }
+        "score": {
+          "type": "number"
+        },
+        "is_ood": {
+          "type": "boolean"
+        }
       }
     },
     "decision": {
       "type": "object",
-      "required": ["action", "reason"],
+      "required": [
+        "action",
+        "reason"
+      ],
       "properties": {
-        "action": { "$ref": "common.schema.json#/$defs/Decision" },
-        "reason": { "type": "string" }
+        "action": {
+          "$ref": "common.schema.json#/$defs/Decision"
+        },
+        "reason": {
+          "type": "string"
+        }
       }
     },
     "image_quality": {
       "type": "object",
-      "required": ["blur", "lighting", "framing", "usable"],
+      "required": [
+        "blur",
+        "lighting",
+        "framing",
+        "usable"
+      ],
       "properties": {
-        "blur": { "type": "number", "minimum": 0, "maximum": 1 },
-        "lighting": { "type": "number", "minimum": 0, "maximum": 1 },
-        "framing": { "type": "number", "minimum": 0, "maximum": 1 },
-        "usable": { "type": "boolean" }
+        "blur": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "lighting": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "framing": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "usable": {
+          "type": "boolean"
+        }
       }
     },
     "explanation": {
       "type": "object",
       "properties": {
-        "heatmap_png_base64": { "type": "string" }
+        "heatmap_png_base64": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
       }
     }
   }
