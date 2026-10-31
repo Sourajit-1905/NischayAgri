@@ -24,15 +24,28 @@ and warns if they drift past the configured tolerance.
 - **Role in this project**: the only training source (`training_sources`
   in `label_space.yaml`). All `in_domain` and `shared` classes derive
   from what PlantVillage contains.
-- **Images**: ~54,300 (reported); `color/` variant used, not
-  `grayscale/` or `segmented/` (see `plantvillage.yaml`)
-- **Classes**: 38, covering 14 crop species
-- **Class balance**: TBD — PlantVillage is known in the literature to be
-  imbalanced across classes (healthy classes and common diseases like
-  tomato early/late blight are overrepresented relative to rarer
-  classes like `cherry__powdery_mildew`). Run `build_splits.py` and
-  record the real per-class counts here once available.
-- **Long-tail classes**: TBD, pending real counts
+- **Images**: 54,305 (actual, confirmed via `build_splits.py` — within
+  0.01% of the ~54,300 reported figure)
+- **Classes**: 38 (confirmed — all real folder names matched
+  `label_space.yaml`'s mapping with zero unmapped classes)
+- **Class balance**: confirmed imbalanced. Smallest class
+  `potato__healthy` (152 images) vs. largest `orange__citrus_greening`
+  (5,507 images) — a ~36x spread. Two other large classes:
+  `soybean__healthy` (5,090), `tomato__yellow_leaf_curl_virus` (5,357).
+  Worth accounting for via class-weighted loss in training
+  (`ml/src/cropml/training/train_loop.py`, Phase 2.3).
+- **Long-tail classes** (under 400 images): `potato__healthy` (152),
+  `apple__cedar_apple_rust` (275), `peach__healthy` (360),
+  `raspberry__healthy` (371), `tomato__mosaic_virus` (373),
+  `grape__healthy` (423)
+- **Near-duplicate rate**: 8,091 of 54,305 images (~14.9%) were
+  clustered as near-duplicates by `dedup.py`'s perceptual hashing —
+  confirms the dedup step was necessary, not precautionary. One class,
+  `soybean__healthy`, has a large enough duplicate cluster that its
+  achieved split ratio deviated from the 70/15/15 target
+  (74.4/12.8/12.8) — not a bug (the group can't be subdivided further),
+  but its test-set metrics may be noisier than other classes due to
+  having proportionally fewer held-out images.
 - **License**: **UNRESOLVED.** The original paper (arXiv:1511.08060)
   states the dataset is released under CC BY-SA 3.0, "with an important
   extension: algorithms trained on the data also fall under the same
