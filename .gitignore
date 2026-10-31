@@ -16,3 +16,8 @@ outputs
 
 
 plantvillage.json
+
+ml/checkpoints 
+ml/mlruns
+ml/mlartifacts/
+mlflow.db
