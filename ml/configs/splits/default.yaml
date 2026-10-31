@@ -1,0 +1,18 @@
+seed: 42
+ratios:
+  train: 0.70
+  val: 0.15
+  test: 0.15
+
+datasets: [plantvillage, plantdoc, fieldplant]
+
+dedup:
+  hash_size: 8
+  max_distance: 8
+
+manifest_dir: data/manifests
+
+# PlantDoc only: per plantdoc.yaml's official_test_role, these samples are
+# pulled into "test" before ratio-based splitting runs on the rest.
+respect_official_test_split:
+  plantdoc: true

@@ -81,6 +81,41 @@ def _majority_class_simple(samples: list[Sample]) -> str:
     return tied[0]
 
 
+def _assign_groups_greedy(
+    group_ids: list[str],
+    group_sizes: dict[str, int],
+    ratios: SplitRatios,
+    rng: np.random.Generator,
+) -> dict[str, SplitName]:
+    """Assign groups to splits via largest-remaining-deficit bin-packing.
+
+    A strict cumulative-sum cutoff can strand an entire split at 0% when a
+    single group's size alone exceeds that split's target (e.g. one large
+    near-duplicate cluster in an otherwise small class). This instead
+    places the largest groups first, each going to whichever split has the
+    biggest gap between its target and what it holds so far - so size
+    imbalance gets spread across splits instead of concentrated in one.
+    """
+    order = rng.permutation(len(group_ids))
+    shuffled = [group_ids[i] for i in order]
+    shuffled.sort(key=lambda g: -group_sizes[g])  # largest first; stable on ties
+
+    total = sum(group_sizes[g] for g in group_ids)
+    targets = {s: getattr(ratios, s) * total for s in ("train", "val", "test")}
+    achieved = {"train": 0, "val": 0, "test": 0}
+    assignment: dict[str, SplitName] = {}
+
+    split_order: tuple[SplitName, ...] = ("train", "val", "test")
+    for gid in shuffled:
+        deficits = {s: targets[s] - achieved[s] for s in split_order}
+        max_deficit = max(deficits.values())
+        tied = [s for s in split_order if deficits[s] == max_deficit]
+        best = tied[0] if len(tied) == 1 else split_order[rng.integers(len(tied))] if False else tied[int(rng.integers(len(tied)))]
+        assignment[gid] = best
+        achieved[best] += group_sizes[gid]
+
+    return assignment
+
 def build_groups(
     samples: list[Sample],
     dedup_assignment: dict[str, str] | None,
@@ -136,22 +171,8 @@ def split_dataset(
 
     for class_id in sorted(by_class):
         gids = by_class[class_id]
-        order = rng.permutation(len(gids))
-        gids_shuffled = [gids[i] for i in order]
-
-        sizes = [len(groups[g]) for g in gids_shuffled]
-        total = sum(sizes)
-        cum = np.cumsum(sizes)
-        train_cut = np.searchsorted(cum, ratios.train * total, side="left")
-        val_cut = np.searchsorted(cum, (ratios.train + ratios.val) * total, side="left")
-
-        for i, gid in enumerate(gids_shuffled):
-            if i < train_cut:
-                split_of_group[gid] = "train"
-            elif i < val_cut:
-                split_of_group[gid] = "val"
-            else:
-                split_of_group[gid] = "test"
+        sizes = {g: len(groups[g]) for g in gids}
+        split_of_group.update(_assign_groups_greedy(gids, sizes, ratios, rng))
 
     assignments = [
         SplitAssignment(sample_id=s.sample_id, split=split_of_group[gid], group_id=gid)
