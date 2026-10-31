@@ -1,0 +1,15 @@
+# Mid-size backbone. Noticeably slower than MobileNetV3 on CPU - use for
+# the final results table, not for quick iteration.
+name: efficientnet_b0
+timm_name: efficientnet_b0
+pretrained: true
+input_size: 224
+dropout: 0.2
+embedding_dim: 1280
+
+batch_size: 16          # smaller than mobilenet_v3's, CPU memory/time tradeoff
+learning_rate: 0.0003
+weight_decay: 0.00001
+freeze_backbone_epochs: 2
+
+license: "Apache 2.0 (timm/torchvision implementation); ImageNet pretrained weights"

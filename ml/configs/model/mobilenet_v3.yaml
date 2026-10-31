@@ -1,0 +1,16 @@
+# Smallest, fastest backbone. Default choice for CPU-only iteration and for
+# the always-run baseline in the results table if compute is tight.
+name: mobilenet_v3
+timm_name: mobilenetv3_small_100
+pretrained: true
+input_size: 224
+dropout: 0.2          # used by mc_dropout.py (Phase 2.3 step 11)
+embedding_dim: 1024    # mobilenetv3_small_100's feature dim before its head
+
+# Training defaults (overridable via configs/experiment/*.yaml)
+batch_size: 32
+learning_rate: 0.0003
+weight_decay: 0.00001
+freeze_backbone_epochs: 2   # train only the head first, then unfreeze
+
+license: "Apache 2.0 (timm/torchvision implementation); ImageNet pretrained weights"

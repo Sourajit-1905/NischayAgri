@@ -1,0 +1,17 @@
+# Smallest practical ViT variant. Expect this to be the slowest of the
+# three on CPU by a wide margin - budget accordingly, or consider running
+# this one's full training via Colab/Kaggle's free GPU tier instead
+# (see the no-GPU note from step 1).
+name: vit_small
+timm_name: vit_small_patch16_224
+pretrained: true
+input_size: 224
+dropout: 0.1           # ViTs are typically more sensitive to high dropout
+embedding_dim: 384
+
+batch_size: 8           # ViTs are memory-heavier per image than CNNs
+learning_rate: 0.0001    # ViTs typically need a lower LR than CNNs
+weight_decay: 0.00001
+freeze_backbone_epochs: 3   # ViTs benefit from a longer frozen warmup
+
+license: "Apache 2.0 (timm/torchvision implementation); ImageNet-21k pretrained weights"
