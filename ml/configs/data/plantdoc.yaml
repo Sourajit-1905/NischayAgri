@@ -1,0 +1,37 @@
+# PlantDoc: web-scraped real-world images (target domain 1).
+name: plantdoc
+domain: field
+
+root_dir: ${oc.env:CROPML_DATA_ROOT,data/raw}/plantdoc
+
+# predefined_splits: <root_dir>/<split_dir>/<class_name>/<image>
+layout: predefined_splits
+split_dirs:
+  train: train
+  test: test
+variant_subdir: null
+image_extensions: [".jpg", ".jpeg", ".png"]
+
+# The official test split is used ONLY as a target-domain evaluation set.
+# It is never used for tuning, calibration or threshold selection.
+official_test_role: target_eval_only
+
+# Class folders have inconsistent names (spaces, mixed case, "leaf" suffix).
+# label_space.yaml (step 3) maps them onto the unified label space.
+class_name_normalization: lowercase_strip
+
+# Images were scraped from the web, so duplicates across and within
+# classes are likely. Group by near-duplicate clusters.
+group_strategy: phash_cluster
+group_metadata_key: null
+
+# The paper reports 2,598 images / 27 classes / 13 species. The released
+# train+test folders total about 2,482 images (2,251 + 231), and the
+# detection version has 29 annotation classes. Hence the wider tolerance.
+expected:
+  n_classes: 27
+  n_images_approx: 2482
+  tolerance: 0.10
+
+license: "UNVERIFIED (check the dataset repository). Images were scraped from Google Images and Ecosia, so per-image copyright is not cleared by any dataset license."
+citation: "Singh et al. (2020), PlantDoc, CoDS-COMAD 2020"

@@ -7,3 +7,8 @@ total_prompt.md
 __pycache__
 .mypy_cache
 .ruff_cache
+
+
+
+ml/scratch.py
+

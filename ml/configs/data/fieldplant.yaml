@@ -1,0 +1,34 @@
+# FieldPlant: images from plantations in Cameroon (target domain 2).
+name: fieldplant
+domain: field
+
+root_dir: ${oc.env:CROPML_DATA_ROOT,data/raw}/fieldplant
+
+# UNVERIFIED layout. I could not confirm the folder structure of the
+# distribution. This assumes classification-style class folders. If your
+# download is a Roboflow export (COCO/YOLO boxes), set annotation_format
+# accordingly and tell me the structure before I write the loader (step 4).
+layout: class_folders
+variant_subdir: null
+image_extensions: [".jpg", ".jpeg", ".png"]
+
+# none | coco | yolo. Boxes are ignored for classification.
+annotation_format: none
+
+# The survey literature describes FieldPlant as including augmented images.
+# Keep this true so the dedup step (step 5) always clusters near-duplicates.
+check_for_augmented_copies: true
+
+# Plantation/plant IDs are not known to be available.
+group_strategy: phash_cluster
+group_metadata_key: null
+
+# 5,170 images (paper). The Roboflow listing shows 30 classes; verify
+# against your download before trusting n_classes.
+expected:
+  n_classes: 30
+  n_images_approx: 5170
+  tolerance: 0.10
+
+license: "UNVERIFIED (check the source you download from: Roboflow Universe or the paper's data link)."
+citation: "Moupojou et al. (2023), IEEE Access 11:35398-35410"

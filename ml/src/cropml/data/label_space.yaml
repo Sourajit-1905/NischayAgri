@@ -1,0 +1,143 @@
+# Unified label space. Class IDs are "<crop>__<condition>".
+# Tags (in_domain / shared / unseen_in_training / ambiguous) are COMPUTED by
+# label_space.py from the mappings below. Do not hand-tag anything.
+
+training_sources: [plantvillage]
+
+classes:
+  - apple__apple_scab
+  - apple__black_rot
+  - apple__cedar_apple_rust
+  - apple__healthy
+  - blueberry__healthy
+  - cherry__powdery_mildew
+  - cherry__healthy
+  - corn_maize__gray_leaf_spot
+  - corn_maize__common_rust
+  - corn_maize__northern_leaf_blight
+  - corn_maize__healthy
+  - grape__black_rot
+  - grape__esca
+  - grape__leaf_blight
+  - grape__healthy
+  - orange__citrus_greening
+  - peach__bacterial_spot
+  - peach__healthy
+  - pepper_bell__bacterial_spot
+  - pepper_bell__healthy
+  - potato__early_blight
+  - potato__late_blight
+  - potato__healthy
+  - raspberry__healthy
+  - soybean__healthy
+  - squash__powdery_mildew
+  - strawberry__leaf_scorch
+  - strawberry__healthy
+  - tomato__bacterial_spot
+  - tomato__early_blight
+  - tomato__late_blight
+  - tomato__leaf_mold
+  - tomato__septoria_leaf_spot
+  - tomato__spider_mites
+  - tomato__target_spot
+  - tomato__yellow_leaf_curl_virus
+  - tomato__mosaic_virus
+  - tomato__healthy
+  # Field-only classes
+  - cassava__bacterial_disease
+  - cassava__brown_leaf_spot
+  - cassava__healthy
+  - cassava__mosaic
+  - cassava__root_rot
+  - corn_maize__smut
+  # Ambiguous: equivalence to a lab class is uncertain
+  - pepper_bell__leaf_spot
+  - corn_maize__leaf_blight
+
+# Excluded from shared-class and OOD evaluation sets.
+ambiguous:
+  - pepper_bell__leaf_spot
+  - corn_maize__leaf_blight
+
+# raw folder name -> class ID. Lookup ignores case and punctuation.
+datasets:
+  plantvillage:
+    "Apple___Apple_scab": apple__apple_scab
+    "Apple___Black_rot": apple__black_rot
+    "Apple___Cedar_apple_rust": apple__cedar_apple_rust
+    "Apple___healthy": apple__healthy
+    "Blueberry___healthy": blueberry__healthy
+    "Cherry_(including_sour)___Powdery_mildew": cherry__powdery_mildew
+    "Cherry_(including_sour)___healthy": cherry__healthy
+    "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot": corn_maize__gray_leaf_spot
+    "Corn_(maize)___Common_rust_": corn_maize__common_rust
+    "Corn_(maize)___Northern_Leaf_Blight": corn_maize__northern_leaf_blight
+    "Corn_(maize)___healthy": corn_maize__healthy
+    "Grape___Black_rot": grape__black_rot
+    "Grape___Esca_(Black_Measles)": grape__esca
+    "Grape___Leaf_blight_(Isariopsis_Leaf_Spot)": grape__leaf_blight
+    "Grape___healthy": grape__healthy
+    "Orange___Haunglongbing_(Citrus_greening)": orange__citrus_greening
+    "Peach___Bacterial_spot": peach__bacterial_spot
+    "Peach___healthy": peach__healthy
+    "Pepper,_bell___Bacterial_spot": pepper_bell__bacterial_spot
+    "Pepper,_bell___healthy": pepper_bell__healthy
+    "Potato___Early_blight": potato__early_blight
+    "Potato___Late_blight": potato__late_blight
+    "Potato___healthy": potato__healthy
+    "Raspberry___healthy": raspberry__healthy
+    "Soybean___healthy": soybean__healthy
+    "Squash___Powdery_mildew": squash__powdery_mildew
+    "Strawberry___Leaf_scorch": strawberry__leaf_scorch
+    "Strawberry___healthy": strawberry__healthy
+    "Tomato___Bacterial_spot": tomato__bacterial_spot
+    "Tomato___Early_blight": tomato__early_blight
+    "Tomato___Late_blight": tomato__late_blight
+    "Tomato___Leaf_Mold": tomato__leaf_mold
+    "Tomato___Septoria_leaf_spot": tomato__septoria_leaf_spot
+    "Tomato___Spider_mites Two-spotted_spider_mite": tomato__spider_mites
+    "Tomato___Target_Spot": tomato__target_spot
+    "Tomato___Tomato_Yellow_Leaf_Curl_Virus": tomato__yellow_leaf_curl_virus
+    "Tomato___Tomato_mosaic_virus": tomato__mosaic_virus
+    "Tomato___healthy": tomato__healthy
+
+  # Best-effort from memory. The loader reports any folder it cannot map.
+  plantdoc:
+    "Apple Scab Leaf": apple__apple_scab
+    "Apple leaf": apple__healthy
+    "Apple rust leaf": apple__cedar_apple_rust
+    "Bell_pepper leaf": pepper_bell__healthy
+    "Bell_pepper leaf spot": pepper_bell__leaf_spot
+    "Blueberry leaf": blueberry__healthy
+    "Cherry leaf": cherry__healthy
+    "Corn Gray leaf spot": corn_maize__gray_leaf_spot
+    "Corn leaf blight": corn_maize__leaf_blight
+    "Corn rust leaf": corn_maize__common_rust
+    "Peach leaf": peach__healthy
+    "Potato leaf early blight": potato__early_blight
+    "Potato leaf late blight": potato__late_blight
+    "Raspberry leaf": raspberry__healthy
+    "Soyabean leaf": soybean__healthy
+    "Squash Powdery mildew leaf": squash__powdery_mildew
+    "Strawberry leaf": strawberry__healthy
+    "Tomato Early blight leaf": tomato__early_blight
+    "Tomato Septoria leaf spot": tomato__septoria_leaf_spot
+    "Tomato leaf": tomato__healthy
+    "Tomato leaf bacterial spot": tomato__bacterial_spot
+    "Tomato leaf late blight": tomato__late_blight
+    "Tomato leaf mosaic virus": tomato__mosaic_virus
+    "Tomato leaf yellow virus": tomato__yellow_leaf_curl_virus
+    "Tomato mold leaf": tomato__leaf_mold
+    "Tomato two spotted spider mites leaf": tomato__spider_mites
+    "grape leaf": grape__healthy
+    "grape leaf black rot": grape__black_rot
+
+  # Only the 7 names seen in the Roboflow listing. The other ~23 are TBD.
+  fieldplant:
+    "Cassava_Bacterial_Disease": cassava__bacterial_disease
+    "Cassava_Brown_Leaf_Spot": cassava__brown_leaf_spot
+    "Cassava_Healthy": cassava__healthy
+    "Cassava_Mosaic": cassava__mosaic
+    "Cassava_Root_Rot": cassava__root_rot
+    "Corn Healthy": corn_maize__healthy
+    "Corn Smut": corn_maize__smut

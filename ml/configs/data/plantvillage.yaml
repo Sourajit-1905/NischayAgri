@@ -1,0 +1,35 @@
+# PlantVillage: lab-captured leaves on uniform backgrounds (source domain).
+name: plantvillage
+domain: lab
+
+# Set CROPML_DATA_ROOT to the folder that holds all raw datasets.
+# PowerShell: $env:CROPML_DATA_ROOT = "D:\datasets"
+root_dir: ${oc.env:CROPML_DATA_ROOT,data/raw}/plantvillage
+
+# class_folders: <root_dir>/[variant_subdir/]<class_name>/<image>
+layout: class_folders
+# Many downloads ship color/, grayscale/ and segmented/. Use color only.
+variant_subdir: color
+image_extensions: [".jpg", ".jpeg", ".png"]
+
+# Folder names look like "Tomato___Early_blight".
+class_name_separator: "___"
+
+# Do NOT point this at an offline-augmented copy (e.g. Kaggle's
+# "New Plant Diseases Dataset (Augmented)"): it bakes near-duplicates into
+# every split. The loader cannot detect this, so check your download.
+allow_offline_augmented: false
+
+# No reliable source-leaf ID in the file names, so group by near-duplicate
+# clusters (perceptual hash) before splitting.
+group_strategy: phash_cluster
+group_metadata_key: null
+
+# Sanity checks only. The loader warns if counts drift past the tolerance.
+expected:
+  n_classes: 38
+  n_images_approx: 54300
+  tolerance: 0.02
+
+license: "UNRESOLVED: CC BY-SA 3.0 per original paper (arXiv:1511.08060); some mirrors list CC0. Decide before publishing."
+citation: "Hughes & Salathe (2015), arXiv:1511.08060"
