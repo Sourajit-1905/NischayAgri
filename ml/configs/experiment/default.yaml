@@ -1,0 +1,45 @@
+# Full experiment grid for the "done when" results table: models x
+# methods x target_domains, averaged over seeds. See run_experiment_table.py
+# (Phase 2.3 step 17) for how this is consumed, and the CPU-budget note
+# there before running this as-is - the full grid is a lot of total runs.
+
+max_eval_samples: null
+backbone: mobilenet_v3
+seed: 0
+dataset_name: plantvillage
+manifest_path: data/manifests/plantvillage.json
+checkpoint_dir: checkpoints
+results_dir: results
+
+backbones: [mobilenet_v3, efficientnet_b0, vit_small]
+
+methods: [softmax, temperature_scaling, mc_dropout, deep_ensemble]
+# conformal deliberately omitted - deferred per the plan's "if time allows"
+# wording (Phase 2.3 step 11d); add it back here once/if it's built.
+
+# Real target domains, once PlantDoc/FieldPlant are downloaded and their
+# manifests built (Phase 2.2's build_splits.py, run against those datasets).
+# plantvillage_test is always available now; the others are TBD.
+target_domains: [plantvillage_test]
+# target_domains: [plantvillage_test, plantdoc, fieldplant]  # uncomment once ready
+
+seeds: [0, 1, 2]
+
+train:
+  epochs: 15
+  device: cpu
+  num_workers: 0
+  use_class_weights: true
+  lambda_crop: 1.0
+  lambda_disease: 1.0
+  max_batches_per_epoch: null   # null = no cap, real training (not a sanity check)
+
+mc_dropout:
+  n_samples: 20
+
+deep_ensemble:
+  n_members: 3
+
+augmentation:
+  use_color_augmentation: true
+  use_gan_data: false

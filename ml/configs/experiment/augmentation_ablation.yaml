@@ -1,0 +1,32 @@
+# The with/without-color-augmentation ablation specifically called for in
+# the plan. Deliberately narrower than default.yaml: one backbone only
+# (mobilenet_v3, the fastest on CPU), one method (softmax - the ablation
+# is about data augmentation's effect, not comparing uncertainty methods),
+# so the 2x color-aug sweep stays affordable on CPU. Widen later if you
+# want the ablation across more backbones once you have compute to spare.
+
+dataset_name: plantvillage
+manifest_path: data/manifests/plantvillage.json
+checkpoint_dir: checkpoints
+results_dir: results
+
+backbones: [mobilenet_v3]
+methods: [softmax]
+target_domains: [plantvillage_test]
+seeds: [0, 1, 2]
+
+train:
+  epochs: 15
+  device: cpu
+  num_workers: 0
+  use_class_weights: true
+  lambda_crop: 1.0
+  lambda_disease: 1.0
+  max_batches_per_epoch: null
+
+# The actual ablation dimension: each value here means a FULL separate
+# training run per (backbone, method, seed) combination above.
+augmentation_sweep:
+  use_color_augmentation: [true, false]
+  use_gan_data: [false]   # true is not runnable yet - see AugmentationConfigError
+                            # in augmentation.py (Phase 2.3 step 8)
