@@ -21,7 +21,7 @@ ml/checkpoints
 ml/mlruns
 ml/mlartifacts/
 mlflow.db
-
+ml/data
 
 checkpoints
 results

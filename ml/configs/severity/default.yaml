@@ -1,0 +1,83 @@
+
+
+dataset_name: plantvillage
+# Lesion-area-ratio pseudo-severity. This is a SUBJECTIVE HEURISTIC, not
+# ground truth - see docs/severity.md (step 7) for the method's documented
+# limitations once it's written.
+
+input_variant: segmented
+# PlantVillage's segmented/ folder: leaf isolated on a pure black
+# background via the dataset's own segmentation, which makes leaf-vs-10
+# background separation reliable without us needing a segmentation model.
+# color/ is deliberately NOT used here, since its backgrounds vary and
+# aren't reliably separable from leaf tissue with a simple heuristic.
+
+background:
+  # A pixel is background if ALL RGB channels are below this value (0-255).
+  # The segmented background is consistently near-pure-black, so a tight
+  # threshold avoids misclassifying dark lesion/necrotic tissue (rarely
+  # EXACTLY black) as background.
+  max_rgb_for_background: 10
+
+healthy_hue:
+  # HSV hue range (degrees, 0-360) considered "healthy green" leaf tissue.
+  # Chosen from the common "green vegetation mask" range used in basic
+  # leaf-disease color segmentation (roughly hue 70-170 degrees covers
+  # yellow-green through green to cyan-green). Any non-background pixel
+  # OUTSIDE this range, or with very low saturation (grayish/whitish,
+  # e.g. powdery mildew), is counted as "lesion" tissue.
+  # KNOWN LIMITATION: this also catches some natural leaf vein shading
+  # and shadow variation as false "lesion" - documented in severity.md.
+  hue_min_degrees: 70
+  hue_max_degrees: 170
+  min_saturation: 0.15
+
+dark_lesion:
+  # A non-background pixel with HSV value (brightness, 0-1) below this
+  # is automatically counted as lesion tissue (necrotic/dark spots),
+  # rather than relying on hue, which becomes unreliable/noisy at very
+  # low brightness.
+  value_threshold: 0.03
+
+severity_buckets:
+  # Used by estimate_severity() when disease status is UNKNOWN (e.g. future
+  # real-world inference, where we won't have a ground-truth class label).
+  # These are less rigorously validated than known_diseased below, since
+  # healthy-vs-diseased separation by color alone proved unreliable on this
+  # data - see docs/severity.md for the full story once written (step 7).
+  general:
+    none_max: 0.02
+    low_max: 0.10
+    moderate_max: 0.30
+
+  # Used ONLY when generating training labels from known-diseased PlantVillage
+  # classes (compute_pseudo_severity.py). A 3-way low/moderate/high split -
+  # "none" isn't a valid outcome here, since the class is already known
+  # diseased. Calibrated from this project's real PlantVillage diseased-class
+  # lesion_ratio distribution: p33=0.0142, p66=0.0915 (n=374, stratified
+  # across 26 diseased classes).
+  known_diseased:
+    low_max: 0.015
+    moderate_max: 0.09
+
+ordinal_head:
+  hidden_dim: 128
+  dropout: 0.2
+  n_levels: 4   # none < low < moderate < high
+
+cache_path: data/pseudo_severity_cache.json
+
+manifest_path: data/manifests/plantvillage.json
+checkpoint_dir: checkpoints
+backbone_name: mobilenet_v3
+backbone_checkpoint_path: checkpoints/mobilenet_v3_seed0.pt
+seed: 0
+
+train:
+  epochs: 10
+  device: cpu
+  batch_size: 32
+  learning_rate: 0.001
+  num_workers: 0
+  freeze_backbone: true
+  max_batches_per_epoch: null

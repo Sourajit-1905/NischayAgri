@@ -110,3 +110,33 @@ This is the largest phase so far by a significant margin — it’s the research
 17. **`scripts/run_experiment_table.py`** — the actual “one command” the Done-when criterion requires; orchestrates multiple training runs (models × methods × seeds) and calls `results_table.py`.
 18. **Tests, last** — `test_backbones.py`, `test_hierarchical_head.py`, `test_uncertainty_methods.py`, `test_ood_scorers.py`, `test_metrics.py`, `test_crop_rejection.py`, each testable with tiny synthetic tensors/datasets rather than real images, so they don’t require real data or real training time.
 
+
+# PHASE 2.4 — Severity Head and Decision Policy
+
+## What this phase does
+
+Since PlantVillage has no real severity labels (confirmed — our data sheet has no severity field), this phase derives **pseudo-severity from lesion-area ratio** (a heuristic: what fraction of the leaf shows disease symptoms, bucketed into none/low/moderate/high), documents that method’s subjectivity honestly in `docs/severity.md`, and trains an **ordinal severity head** on those pseudo-labels — ordinal because “moderate” is between “low” and “high,” not just an unordered category, so the loss needs to respect that ordering (unlike the crop/disease heads from Phase 2.3, which are genuinely unordered classification).
+
+The second half is `ml/decision`: a **pure, unit-tested function** that takes crop/disease/severity confidences + OOD score + image quality and outputs one of the four `Decision` enum values (`ACCEPT`/`ABSTAIN_RETAKE`/`ABSTAIN_EXPERT`/`REJECT_UNKNOWN`) from the API contract, with a reason code. Thresholds aren’t hand-picked — they’re tuned by minimizing **expected cost**, where cost is configurable (cost of a wrong treatment recommendation, cost of a missed disease, cost of abstaining), and the tuning process outputs cost-vs-coverage curves so you can see the tradeoff, not just one number.
+
+## Done When
+
+Policy tests cover every branch, and the cost-sensitive tuning reproduces from one config file.
+
+## Implementation Order, and Why
+
+1. **`configs/severity/default.yaml`** — lesion-ratio bucket thresholds and ordinal head hyperparameters; read by steps 2 and 4.
+2. **`src/cropml/data/pseudo_severity.py`** — the lesion-area-ratio heuristic itself; pure image-processing logic, no model dependency, testable standalone with synthetic images.
+3. **`scripts/compute_pseudo_severity.py`** — runs step 2 across real PlantVillage images once, caches results to disk (since recomputing this per-epoch would be wasteful) — needed before real severity training can use real labels.
+4. **`src/cropml/models/severity_head.py`** — the ordinal head; independent of data, testable with synthetic embeddings.
+5. **`src/cropml/training/severity_train_loop.py`** — trains the head from step 4 using cached labels from step 3, reusing a Phase 2.3 backbone for embeddings (kept as a separate training loop from `train_loop.py` to avoid touching already-tested Phase 2.3 code).
+6. **`scripts/train_severity.py`** — Hydra CLI wrapper around step 5, mirroring `train.py`’s pattern.
+7. **`docs/severity.md`** — written once the method and real label distribution are known, documenting the heuristic’s thresholds and honestly flagging its subjectivity (per the plan’s explicit requirement).
+8. **`configs/decision/default.yaml`** — decision thresholds and cost parameters; logically independent of severity’s internals, just needs confidence-shaped inputs.
+9. **`src/cropml/decision/policy.py`** — the pure `decide()` function; the core unit-testable logic the “done when” criterion is about.
+10. **`src/cropml/decision/threshold_tuning.py`** — cost-minimizing search over `policy.py`’s thresholds, producing cost-vs-coverage curves.
+11. **Tests, last** — covering every branch of the pseudo-severity heuristic, the ordinal head’s math, every decision-policy branch, and the threshold-tuning search.
+
+
+
+
