@@ -1,0 +1,43 @@
+# Decision policy thresholds and cost parameters.
+# These starting values are overridden by threshold_tuning.py (step 10),
+# which searches for cost-minimizing combinations. Edit here to fix
+# specific thresholds for a production deployment, or to change the cost
+# structure for a different use-case tradeoff.
+
+# --- thresholds ---
+
+# Crop head: minimum calibrated confidence to trust the crop prediction.
+# Below this -> ABSTAIN_RETAKE or ABSTAIN_EXPERT depending on image quality.
+crop_confidence_threshold: 0.5
+
+# Disease head: minimum calibrated confidence to report ACCEPT.
+# Below this, but crop accepted -> ABSTAIN_EXPERT.
+disease_confidence_threshold: 0.4
+
+# OOD score (from any scorer - normalized to [0, 1], higher = more OOD):
+# above this -> REJECT_UNKNOWN regardless of classification confidence.
+ood_score_threshold: 0.7
+
+# Image quality: usability gate BEFORE model inference.
+# If the image quality score (blur, lighting, framing composite) is
+# below this, we can't trust any model output at all -> ABSTAIN_RETAKE.
+image_quality_threshold: 0.5
+
+# --- cost parameters (used by threshold_tuning.py, step 10) ---
+# These encode relative harm, NOT monetary costs. Units are arbitrary
+# but internally consistent: a wrong treatment is 3x more harmful than
+# an unnecessary abstain, 5x more harmful than a missed detection.
+costs:
+  wrong_treatment: 3.0   # ACCEPT when wrong -> a user acts on bad advice
+  missed_detection: 1.0   # REJECT/ABSTAIN when diseased -> delayed care
+  unnecessary_abstain: 0.5 # ABSTAIN_EXPERT when right answer was available
+  false_ood_rejection: 0.8 # REJECT_UNKNOWN when actually in-distribution
+
+# --- OOD scorer to use ---
+# Options: msp | energy | mahalanobis | odin
+# "msp" is the default: cheap (no extra forward passes or fitting),
+# available immediately from inference output, and a solid baseline.
+# Switch to energy/mahalanobis for a potentially better AUROC once
+# evaluated on real OOD data (Phase 2.3's OOD scorer suite already
+# supports all four - this just selects which one the policy reads).
+ood_scorer: msp
