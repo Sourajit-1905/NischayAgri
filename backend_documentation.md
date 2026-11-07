@@ -138,5 +138,23 @@ Policy tests cover every branch, and the cost-sensitive tuning reproduces from o
 11. **Tests, last** — covering every branch of the pseudo-severity heuristic, the ordinal head’s math, every decision-policy branch, and the threshold-tuning search.
 
 
+# PHASE 2.5 — Explainability and Shortcut Checks
 
+## What this phase does
+
+Implements Grad-CAM and Score-CAM in `ml/explain/`, evaluates them on correct/wrong/OOD cases, runs quantitative faithfulness checks (deletion/insertion tests, background-attention ratio), runs a background-masking experiment comparing in-domain vs cross-domain, and produces compact heatmap PNGs for the API’s `explanation.heatmap_png_base64` field.
+
+## Done When
+
+A report quantifies how often confidently-wrong predictions rely on background.
+
+## Implementation Order
+
+1. `explain/gradcam.py` — hook-based Grad-CAM; depends only on backbone (step 4, Phase 2.3)
+2. `explain/scorecam.py` — Score-CAM alternative; depends on `gradcam.py`’s output shape conventions
+3. `explain/heatmap.py` — resize, colorize, encode to base64 PNG for the API field; depends on steps 1–2
+4. `explain/faithfulness.py` — deletion/insertion tests; depends on heatmap (step 3) and the full model pipeline
+5. `explain/background.py` — background-attention ratio and masking experiment; depends on steps 1–3
+6. `scripts/run_explain.py` — ties it all together into the report
+7. `tests/test_explain.py` — covers all modules with synthetic tensors
 

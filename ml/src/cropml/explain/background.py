@@ -15,6 +15,8 @@ from __future__ import annotations
 from collections.abc import Callable
 from dataclasses import dataclass
 
+
+
 import torch
 import torch.nn.functional as F
 
@@ -68,6 +70,7 @@ def masking_experiment(
 ) -> MaskingExperimentResult:
     """Replaces background pixels with fill_value and measures confidence
     change. A large drop indicates the model relied on background features."""
+    
     with torch.no_grad():
         orig_probs = forward_fn(images)
         masked_images = images * leaf_masks + fill_value * (1.0 - leaf_masks)
@@ -83,10 +86,6 @@ def masking_experiment(
         mean_confidence_drop=float(drops.mean().item()),
         n_samples=len(images),
     )
-
-
-
-
 
 
 
