@@ -158,3 +158,29 @@ A report quantifies how often confidently-wrong predictions rely on background.
 6. `scripts/run_explain.py` — ties it all together into the report
 7. `tests/test_explain.py` — covers all modules with synthetic tensors
 
+# PHASE 2.6 — Inference Service
+
+## What this phase does
+
+Exports the chosen PyTorch model to ONNX with a parity test, creates a model registry in `artifacts/` (versioned manifests with weights hash, training config, metrics, thresholds), implements `quality_service` / `inference_service` / `decision_service` in `apps/api`, and replaces the Phase 2.1 stubs with real inference behind the same interfaces. Also hardens uploads (MIME sniffing, size/dimension limits, EXIF stripping, decompression-bomb protection) and adds a config flag to fall back to stubs.
+
+## Done When
+
+Contract tests still pass, p95 CPU latency is measured and documented, and malformed uploads are rejected cleanly.
+
+## Implementation Order
+
+1. `ml/src/cropml/export/onnx_export.py` — PyTorch → ONNX export
+2. `ml/src/cropml/export/parity_test.py` — numeric parity check
+3. `ml/scripts/export_model.py` — CLI tying steps 1–2 + manifest writing
+4. `artifacts/manifest.yaml` — written by step 3, described here
+5. `apps/api/pyproject.toml` — add `onnxruntime`
+6. `apps/api/src/cropapi/adapters/model_runtime/onnx_runner.py` — ONNX Runtime wrapper
+7. `apps/api/src/cropapi/services/quality_service.py` — image quality scoring
+8. `apps/api/src/cropapi/services/inference_service.py` — full inference pipeline
+9. `apps/api/src/cropapi/services/decision_service.py` — decision wrapper
+10. `apps/api/src/cropapi/services/predict_service.py` — replace stub with real inference
+11. `apps/api/src/cropapi/core/security.py` — EXIF stripping + decompression-bomb protection
+12. Tests + latency measurement
+
+
