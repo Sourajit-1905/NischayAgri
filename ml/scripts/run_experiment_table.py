@@ -24,7 +24,12 @@ if _SRC.exists() and str(_SRC) not in sys.path:
     sys.path.insert(0, str(_SRC))
 
 from cropml.data.label_space import load_label_space  # noqa: E402
-from cropml.evaluation.metrics import accuracy, expected_calibration_error, macro_f1, risk_coverage_curve  # noqa: E402
+from cropml.evaluation.metrics import (  # noqa: E402
+    accuracy,
+    expected_calibration_error,
+    macro_f1,
+    risk_coverage_curve,
+)
 from cropml.evaluation.results_table import (  # noqa: E402
     RunResult,
     aggregate_over_seeds,
@@ -37,9 +42,9 @@ from cropml.models.hierarchical_head import HierarchicalHead  # noqa: E402
 from cropml.training.augmentation import AugmentationConfig, build_eval_transform  # noqa: E402
 from cropml.training.dataset import CropDiseaseDataset  # noqa: E402
 from cropml.training.train_loop import TrainConfig, run_training  # noqa: E402
-from cropml.uncertainty.deep_ensemble import load_ensemble_members, ensemble_predict  # noqa: E402
+from cropml.uncertainty.deep_ensemble import ensemble_predict, load_ensemble_members  # noqa: E402
 from cropml.uncertainty.mc_dropout import mc_dropout_predict  # noqa: E402
-from cropml.uncertainty.temperature_scaling import calibrate, TemperatureScaledModel  # noqa: E402
+from cropml.uncertainty.temperature_scaling import TemperatureScaledModel, calibrate  # noqa: E402
 
 _CONFIG_DIR = Path(__file__).resolve().parents[1] / "configs"
 

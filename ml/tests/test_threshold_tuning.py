@@ -1,9 +1,15 @@
 import random
+
 from cropml.decision.policy import Decision
 from cropml.decision.threshold_tuning import (
-    CostConfig, ScoredSample, sample_cost, total_cost,
-    tune_thresholds, cost_vs_coverage, DecisionResult,
+    CostConfig,
+    DecisionResult,
+    ScoredSample,
+    cost_vs_coverage,
+    sample_cost,
+    tune_thresholds,
 )
+
 
 def _samples(n=50, seed=0):
     random.seed(seed)

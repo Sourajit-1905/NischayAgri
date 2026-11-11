@@ -26,7 +26,11 @@ if _SRC.exists() and str(_SRC) not in sys.path:
     sys.path.insert(0, str(_SRC))
 
 from cropml.data.loaders import get_loader  # noqa: E402
-from cropml.data.pseudo_severity import SeverityConfig, bucket_known_diseased, estimate_severity_from_path  # noqa: E402
+from cropml.data.pseudo_severity import (  # noqa: E402
+    SeverityConfig,
+    bucket_known_diseased,
+    estimate_severity_from_path,
+)
 
 _CONFIG_DIR = Path(__file__).resolve().parents[1] / "configs"
 

@@ -1,10 +1,13 @@
 import numpy as np
-import pytest
 from PIL import Image
 
 from cropml.data.pseudo_severity import (
-    SeverityBucket, SeverityConfig, bucket_known_diseased, estimate_severity,
+    SeverityBucket,
+    SeverityConfig,
+    bucket_known_diseased,
+    estimate_severity,
 )
+
 
 def _cfg() -> SeverityConfig:
     return SeverityConfig(

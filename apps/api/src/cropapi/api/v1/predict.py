@@ -8,7 +8,10 @@ router = APIRouter()
 
 
 def get_predict_service(settings: Settings = Depends(get_settings)) -> PredictService:
-    return PredictService(max_upload_bytes=settings.max_upload_bytes)
+    return PredictService(
+        max_upload_bytes=settings.max_upload_bytes,
+        use_stubs=settings.use_stubs,
+    )
 
 
 @router.post("/predict", response_model=PredictionResponse)

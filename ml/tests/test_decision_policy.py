@@ -1,5 +1,5 @@
-import pytest
 from cropml.decision.policy import Decision, DecisionConfig, decide
+
 
 def _cfg(**kwargs):
     return DecisionConfig(**kwargs)

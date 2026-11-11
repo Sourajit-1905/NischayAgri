@@ -1,10 +1,14 @@
 import torch
-import pytest
 
 from cropml.models.severity_head import (
-    SeverityHead, SeverityHeadConfig, coral_loss, decode_level,
-    level_probabilities, severity_entropy,
+    SeverityHead,
+    SeverityHeadConfig,
+    coral_loss,
+    decode_level,
+    level_probabilities,
+    severity_entropy,
 )
+
 
 def _head():
     return SeverityHead(embedding_dim=8, config=SeverityHeadConfig(hidden_dim=16, dropout=0.0, n_levels=4))

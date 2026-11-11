@@ -13,7 +13,8 @@ import numpy as np
 from PIL import Image
 
 from cropapi.adapters.model_runtime.onnx_runner import ModelManifest, OnnxRunner
-from cropapi.core.errors import AppError
+
+# from cropapi.core.errors import AppError
 from cropapi.services.quality_service import QualityScore, score_quality
 
 

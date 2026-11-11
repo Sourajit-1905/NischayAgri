@@ -10,7 +10,6 @@ See docs/severity.md (Phase 2.4 step 7) for documented limitations.
 
 from __future__ import annotations
 
-import colorsys
 from dataclasses import dataclass
 from enum import StrEnum
 from pathlib import Path

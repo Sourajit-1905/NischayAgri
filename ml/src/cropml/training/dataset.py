@@ -13,7 +13,6 @@ from pathlib import Path
 from PIL import Image
 from torch.utils.data import Dataset
 
-from cropml.data.label_space import load_label_space
 from cropml.data.loaders import get_loader
 from cropml.data.loaders.base import Sample
 from cropml.data.manifest import load_manifest

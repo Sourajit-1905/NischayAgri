@@ -99,7 +99,10 @@ class OnnxRunner:
         if elapsed_ms > self.timeout_ms:
             raise AppError(
                 code="inference_timeout",
-                message=f"Inference took {elapsed_ms:.0f}ms, exceeded {self.timeout_ms:.0f}ms limit",
+                message=(
+                    f"Inference took {elapsed_ms:.0f}ms, "
+                    f"exceeded {self.timeout_ms:.0f}ms limit"
+                ),
                 status_code=503,
             )
         return OnnxOutput(

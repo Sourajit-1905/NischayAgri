@@ -3,7 +3,7 @@ import io
 
 import pytest
 import torch
-import torch.nn.functional as F
+from PIL import Image
 
 from cropml.explain.background import background_attention_ratio, masking_experiment
 from cropml.explain.faithfulness import faithfulness_test
@@ -12,7 +12,6 @@ from cropml.explain.heatmap import cam_to_base64_png, cam_to_heatmap_pil
 from cropml.explain.scorecam import score_cam
 from cropml.models.backbone import BackboneConfig
 from cropml.models.mobilenet_v3 import MobileNetV3Backbone
-from PIL import Image
 
 
 def _backbone():
@@ -103,8 +102,8 @@ def test_faithfulness_curves_correct_length():
     result = faithfulness_test(image, cam, fwd, class_idx=0, n_steps=4)
     assert len(result.deletion_curve) == 4
     assert len(result.insertion_curve) == 4
-    assert 0 <= result.deletion_auc
-    assert 0 <= result.insertion_auc
+    assert result.deletion_auc >= 0
+    assert result.insertion_auc >= 0
 
 
 #  Background 

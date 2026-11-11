@@ -25,7 +25,11 @@ from cropml.data.manifest import load_manifest
 from cropml.models import get_backbone
 from cropml.models.backbone import Backbone
 from cropml.models.severity_head import SeverityHead, SeverityHeadConfig, coral_loss, decode_level
-from cropml.training.augmentation import AugmentationConfig, build_eval_transform, build_train_transform
+from cropml.training.augmentation import (
+    AugmentationConfig,
+    build_eval_transform,
+    build_train_transform,
+)
 
 _DEFAULT_CHECKPOINT_DIR = Path(__file__).resolve().parents[3] / "checkpoints"
 

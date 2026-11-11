@@ -19,18 +19,14 @@ import hydra
 import torch
 import torch.nn.functional as F
 from omegaconf import DictConfig
-from PIL import Image
 
 _SRC = Path(__file__).resolve().parents[1] / "src"
 if _SRC.exists() and str(_SRC) not in sys.path:
     sys.path.insert(0, str(_SRC))
 
-from cropml.data.loaders import get_loader  # noqa: E402
-from cropml.data.manifest import load_manifest  # noqa: E402
-from cropml.explain.background import background_attention_ratio, masking_experiment  # noqa: E402
+from cropml.explain.background import background_attention_ratio  # noqa: E402
 from cropml.explain.faithfulness import faithfulness_test  # noqa: E402
 from cropml.explain.gradcam import GradCAM, get_target_layer  # noqa: E402
-from cropml.explain.heatmap import cam_to_base64_png  # noqa: E402
 from cropml.models import get_backbone  # noqa: E402
 from cropml.models.hierarchical_head import HierarchicalHead  # noqa: E402
 from cropml.training.augmentation import build_eval_transform  # noqa: E402
@@ -130,8 +126,8 @@ def main(cfg: DictConfig) -> None:
         "# Explainability Report",
         f"n_samples={len(rows)}, backbone={backbone_name}",
         "",
-        f"| group | n | mean_bg_attention_ratio |",
-        f"|---|---|---|",
+        "| group | n | mean_bg_attention_ratio |",
+        "|---|---|---|",
         f"| correct + confident | {len(right_confident)} | {rc_bg:.4f} |",
         f"| wrong + confident | {len(wrong_confident)} | {wc_bg:.4f} |",
         "",
