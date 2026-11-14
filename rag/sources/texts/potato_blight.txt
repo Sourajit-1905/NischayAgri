@@ -1,0 +1,33 @@
+# Potato Blight Control Guide
+
+## Overview
+Potato is affected by two major blight diseases: early blight (Alternaria solani) and late blight (Phytophthora infestans). Both can cause significant defoliation and tuber losses. Late blight is considered the more serious threat due to its explosive spread under favorable conditions.
+
+## Early Blight of Potato
+
+### Symptoms
+Small, dark, circular to angular lesions with concentric rings appear on older leaves first. Lesions may have a yellow halo. Severely affected leaves turn yellow and drop. Tuber symptoms are uncommon but may include shallow, dark, circular lesions on the surface.
+
+### Management
+- Maintain adequate soil fertility, particularly nitrogen and potassium.
+- Apply fungicides (chlorothalonil, mancozeb) at 7-14 day intervals beginning when plants reach 15-20 cm height or when conditions favor disease.
+- Remove infected debris after harvest.
+
+## Late Blight of Potato
+
+### Symptoms
+Water-soaked lesions on leaves that rapidly turn brown and may develop white sporulation on the underside under humid conditions. Stem lesions appear dark brown and water-soaked. Tuber rot: pink to brown discolouration extending from the skin inward, firm at first but quickly becoming soft as secondary bacteria invade.
+
+### Management
+- Use certified disease-free seed potatoes.
+- Plant resistant varieties where available.
+- Apply fungicides preventively: chlorothalonil, mancozeb, cymoxanil combinations, or copper products for organic systems.
+- Hill potatoes to protect tubers from sporangia washing down through soil.
+- Destroy infected plant tissue; do not leave infected tubers or haulm in the field.
+- After a severe outbreak, do not store potentially infected tubers as they will rot and may spread disease.
+
+## Integrated Management Principles
+Both diseases are best managed through an integrated approach combining resistant varieties, cultural practices, and timely fungicide applications. No single tactic provides complete control. Regular field monitoring, particularly during warm humid weather for early blight and cool wet weather for late blight, enables timely intervention.
+
+## Safety Notice
+Follow all fungicide label instructions. Consult a qualified advisor for a management programme tailored to your conditions and local regulations.

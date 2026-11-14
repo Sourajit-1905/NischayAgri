@@ -1,0 +1,44 @@
+# Grape Disease Management: Black Rot, Esca, Leaf Blight
+
+## Grape Black Rot
+
+### Overview
+Black rot, caused by Guignardia bidwellii, is one of the most serious diseases of grapes in humid regions of eastern North America and Europe.
+
+### Symptoms
+Circular, tan to brown lesions with dark borders on leaves. Infected berries initially appear light brown, then shrivel into hard, black mummies that remain on the cluster. Mummified berries are the primary source of overwintering inoculum.
+
+### Management
+- Remove and destroy mummified berries and infected canes during dormant pruning.
+- Apply fungicides from early shoot growth (2-5 cm) through veraison: mancozeb, myclobutanil, azoxystrobin.
+- Maintain open canopy through pruning and training to improve air circulation and spray penetration.
+
+## Grape Esca (Black Measles)
+
+### Overview
+Esca is a complex trunk disease caused by a consortium of wood-rotting fungi including Phaeomoniella chlamydospora and Phaeoacremonium species. It is chronic and difficult to manage once established.
+
+### Symptoms
+Interveinal chlorosis and necrosis producing a "tiger stripe" pattern on leaves; infected berries develop dark spots (black measles). In severe cases ("apoplexy"), entire shoots collapse suddenly.
+
+### Management
+- Prune during dry weather to minimise infection of pruning wounds.
+- Apply wound protectants (Trichoderma-based products, copper paste) immediately after pruning.
+- Remove and destroy infected wood.
+- No fully effective fungicide treatment for established esca exists; management focuses on prevention.
+
+## Grape Leaf Blight (Isariopsis Leaf Spot)
+
+### Overview
+Caused by Pseudocercospora vitis, this disease is most prevalent in warm, humid regions.
+
+### Symptoms
+Irregular, dark brown necrotic spots on leaves, often causing premature defoliation.
+
+### Management
+- Maintain open canopy to improve air circulation.
+- Apply copper-based fungicides or mancozeb during the growing season.
+- Remove and destroy infected leaf debris.
+
+## Safety Notice
+Follow all label instructions. Consult a viticulture advisor for a programme tailored to your varieties, region, and regulatory requirements.

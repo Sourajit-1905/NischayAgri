@@ -59,9 +59,10 @@ _DOMAIN_TO_DATASET_SPLIT: dict[str, tuple[str, str]] = {
 def _train_or_load(backbone_name: str, seed: int, cfg: DictConfig):
     checkpoint_dir = Path(cfg.checkpoint_dir)
     checkpoint_path = checkpoint_dir / f"{backbone_name}_seed{seed}.pt"
+    resume_path = checkpoint_dir / f"{backbone_name}_seed{seed}_resume.pt"
 
-    if checkpoint_path.exists():
-        print(f"  [{backbone_name} seed={seed}] checkpoint exists, loading (skip training)")
+    if checkpoint_path.exists() and not resume_path.exists():
+        print(f"  [{backbone_name} seed={seed}] final checkpoint exists, loading")
         backbone = get_backbone(backbone_name)
         head = HierarchicalHead(embedding_dim=backbone.embedding_dim)
         checkpoint = torch.load(checkpoint_path, weights_only=True)

@@ -44,7 +44,7 @@ class TrainConfig:
     use_class_weights: bool = True
     lambda_crop: float = 1.0
     lambda_disease: float = 1.0
-    max_batches_per_epoch: int | None = None  # cap, for fast CPU verification
+    max_batches_per_epoch: int | None = None
     log_every_n_steps: int = 10
     checkpoint_dir: Path = field(default_factory=lambda: _DEFAULT_CHECKPOINT_DIR)
 
@@ -59,9 +59,6 @@ class EpochMetrics:
 def _compute_class_weights(
     train_ds: CropDiseaseDataset, head: HierarchicalHead
 ) -> tuple[torch.Tensor, torch.Tensor]:
-    """Inverse-frequency weights, for the crop head and disease head
-    respectively. Addresses the real imbalance found in Phase 2.3 step 7
-    (e.g. potato__healthy=152 vs orange__citrus_greening=5507)."""
     disease_counts_by_class = train_ds.class_counts()
 
     disease_counts = torch.ones(len(head.classes))
@@ -99,7 +96,7 @@ def build_dataloaders(
 
     train_loader = DataLoader(
         train_ds,
-        batch_size=head.label_space and _batch_size_for(head),  # placeholder, replaced below
+        batch_size=head.label_space and _batch_size_for(head),
         shuffle=True,
         num_workers=train_config.num_workers,
     )
@@ -113,9 +110,6 @@ def build_dataloaders(
 
 
 def _batch_size_for(head: HierarchicalHead) -> int:  # noqa: ARG001
-    # Placeholder resolved properly in run_training, which has access to
-    # the actual BackboneConfig.batch_size. Kept here only so
-    # build_dataloaders has a sane standalone default for direct testing.
     return 16
 
 
@@ -129,7 +123,6 @@ def _run_epoch(
     config: TrainConfig,
     optimizer: torch.optim.Optimizer | None,
 ) -> EpochMetrics:
-    """optimizer=None runs in eval mode (no gradient updates)."""
     is_train = optimizer is not None
     backbone.train(is_train)
     head.train(is_train)
@@ -186,7 +179,6 @@ def run_training(
     run_name: str | None = None,
     on_epoch_end: Callable[[int, EpochMetrics, EpochMetrics], None] | None = None,
 ) -> tuple[Backbone, HierarchicalHead, Path]:
-    """Trains one backbone end-to-end. Returns (backbone, head, checkpoint_path)."""
     set_seed(train_config.seed)
     aug_config = aug_config or AugmentationConfig()
 
@@ -229,11 +221,27 @@ def run_training(
         weight_decay=backbone.config.weight_decay,
     )
 
-    tracker = ExperimentTracker()
     run_name = run_name or f"{backbone_name}_seed{train_config.seed}"
+    checkpoint_dir = train_config.checkpoint_dir
+    checkpoint_dir.mkdir(parents=True, exist_ok=True)
+    checkpoint_path = checkpoint_dir / f"{run_name}.pt"
+    resume_path = checkpoint_dir / f"{run_name}_resume.pt"
 
+    # --- resume support ---
+    start_epoch = 0
+    if resume_path.exists():
+        print(f"[resume] found resume checkpoint: {resume_path}")
+        resume_data = torch.load(resume_path, weights_only=False)
+        backbone.load_state_dict(resume_data["backbone_state_dict"])
+        head.load_state_dict(resume_data["head_state_dict"])
+        optimizer.load_state_dict(resume_data["optimizer_state_dict"])
+        start_epoch = resume_data["epoch"] + 1
+        print(f"[resume] resuming from epoch {start_epoch} of {train_config.epochs}")
+    # ----------------------
+
+    tracker = ExperimentTracker()
     with tracker.start_run(run_name, configs={"train": train_config, "aug": aug_config}):
-        for epoch in range(train_config.epochs):
+        for epoch in range(start_epoch, train_config.epochs):
             if epoch < backbone.config.freeze_backbone_epochs:
                 backbone.freeze_backbone()
             else:
@@ -242,11 +250,11 @@ def run_training(
             train_metrics = _run_epoch(
                 backbone, head, train_loader, train_config.device,
                 crop_weights, disease_weights, train_config, optimizer,
-            )  # fmt: skip
+            )
             val_metrics = _run_epoch(
                 backbone, head, val_loader, train_config.device,
                 crop_weights, disease_weights, train_config, optimizer=None,
-            )  # fmt: skip
+            )
 
             tracker.log_metrics(
                 {
@@ -259,12 +267,35 @@ def run_training(
                 },
                 step=epoch,
             )
+
+            # Always print to terminal
+            print(
+                f"[{run_name}] epoch {epoch}/{train_config.epochs - 1}: "
+                f"train_loss={train_metrics.loss:.4f} "
+                f"train_crop_acc={train_metrics.crop_accuracy:.3f} "
+                f"train_disease_acc={train_metrics.disease_accuracy:.3f} | "
+                f"val_loss={val_metrics.loss:.4f} "
+                f"val_crop_acc={val_metrics.crop_accuracy:.3f} "
+                f"val_disease_acc={val_metrics.disease_accuracy:.3f}",
+                flush=True,
+            )
+
             if on_epoch_end is not None:
                 on_epoch_end(epoch, train_metrics, val_metrics)
 
-        checkpoint_dir = train_config.checkpoint_dir
-        checkpoint_dir.mkdir(parents=True, exist_ok=True)
-        checkpoint_path = checkpoint_dir / f"{run_name}.pt"
+            # Save resume checkpoint after every epoch
+            torch.save(
+                {
+                    "epoch": epoch,
+                    "backbone_state_dict": backbone.state_dict(),
+                    "head_state_dict": head.state_dict(),
+                    "optimizer_state_dict": optimizer.state_dict(),
+                    "run_name": run_name,
+                },
+                resume_path,
+            )
+
+        # Training complete — save final checkpoint, remove resume file
         torch.save(
             {
                 "backbone_name": backbone_name,
@@ -274,5 +305,8 @@ def run_training(
             checkpoint_path,
         )
         tracker.log_artifact(checkpoint_path)
+        if resume_path.exists():
+            resume_path.unlink()
+            print(f"[{run_name}] training complete. checkpoint: {checkpoint_path}")
 
     return backbone, head, checkpoint_path

@@ -1,0 +1,44 @@
+# Corn Disease Management: Common Rust, Gray Leaf Spot, Northern Leaf Blight
+
+## Common Rust
+
+### Overview
+Common rust, caused by Puccinia sorghi, is widespread in maize-growing regions worldwide. It is generally a minor disease in warm climates but can cause significant yield loss in cool, humid conditions.
+
+### Symptoms
+Small, circular to elongate, powdery, cinnamon-brown pustules on both leaf surfaces. Pustules rupture the epidermis and release rust-coloured urediniospores. Heavily infected leaves may turn yellow and die prematurely.
+
+### Management
+- Plant resistant hybrids: most commercially available hybrids carry adequate resistance.
+- Fungicide applications (azoxystrobin, propiconazole) are warranted only when disease appears early on susceptible hybrids and conditions favour continued spread.
+- Early planting dates can help crops escape peak rust pressure in some regions.
+
+## Gray Leaf Spot (Cercospora Leaf Spot)
+
+### Overview
+Gray leaf spot, caused by Cercospora zeae-maydis, has become one of the most yield-limiting diseases of maize in the United States and sub-Saharan Africa.
+
+### Symptoms
+Rectangular, tan to grey lesions with parallel edges that are limited by leaf veins. Under humid conditions, a grey sporulation may be visible on lesions. Severe infections cause extensive blighting of leaves.
+
+### Management
+- Plant resistant hybrids: the most effective and economical management tool.
+- Rotate crops: the pathogen survives on infected residue, so rotating away from maize for one or more years reduces inoculum.
+- Minimum tillage increases disease risk by leaving infected residue on the soil surface; consider tillage in fields with severe disease history.
+- Apply foliar fungicides (strobilurins, triazoles) at tasselling stage if disease is present on the ear leaf or above on susceptible hybrids.
+
+## Northern Leaf Blight
+
+### Overview
+Northern leaf blight, caused by Exserohilum turcicum, is an important foliar disease of maize worldwide.
+
+### Symptoms
+Large, elliptical, grey-green to tan lesions (2-15 cm long) on leaves. Lesions may have a distinctive "cigar-shaped" appearance. Under humid conditions, dark green to black sporulation occurs within lesions.
+
+### Management
+- Use resistant hybrids: Ht genes (Ht1, Ht2, Ht3, HtN) provide resistance, though new races can overcome some resistance genes.
+- Crop rotation and tillage to reduce inoculum from infected residue.
+- Apply foliar fungicides (propiconazole, azoxystrobin, tebuconazole) at VT/R1 stage if disease is present on the third leaf below the ear or above and conditions are humid.
+
+## Safety Notice
+Follow all fungicide label instructions. Consult your local extension service for hybrid selection and spray timing recommendations specific to your region and growing season.

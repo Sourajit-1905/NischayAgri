@@ -1,0 +1,42 @@
+# General Principles of Plant Disease Management
+
+## The Disease Triangle
+Plant disease occurs when three conditions are simultaneously met: a susceptible host plant, a virulent pathogen, and a favourable environment. Management strategies aim to disrupt one or more sides of this triangle.
+
+## Integrated Disease Management
+Effective plant disease management relies on integrating multiple tactics rather than relying on any single approach. The main pillars are:
+
+### Resistant Varieties
+Planting resistant or tolerant varieties is the most economical and environmentally sustainable management strategy. Consult local extension recommendations for varieties suited to your region and disease pressure.
+
+### Cultural Practices
+- Crop rotation: Rotating to non-host crops breaks the pathogen cycle and reduces inoculum levels.
+- Sanitation: Removing and destroying infected plant debris reduces overwintering inoculum.
+- Planting density and canopy management: Adequate spacing and pruning improve air circulation, reducing leaf wetness duration.
+- Irrigation management: Drip or furrow irrigation reduces leaf wetness compared to overhead irrigation.
+- Timing: Early or late planting dates can help crops escape peak disease periods.
+
+### Biological Control
+Several biocontrol agents (e.g., Trichoderma species, Bacillus subtilis) are available for soil-borne and foliar diseases. These are most effective as part of an integrated programme rather than sole management tools.
+
+### Chemical Control
+Fungicides and bactericides are important tools when other tactics are insufficient. Key principles:
+- Apply preventively before disease onset under high-risk conditions.
+- Rotate fungicide classes (modes of action) to delay resistance development.
+- Follow label instructions for rates, intervals, and pre-harvest intervals.
+- Resistance to some fungicide classes (e.g., metalaxyl, some strobilurins) is widespread; monitor local resistance reports.
+
+## When to Seek Expert Help
+Consult a qualified plant pathologist or agricultural extension officer when:
+- Disease identity is uncertain.
+- Losses are severe or occurring rapidly.
+- Standard management practices are not effective.
+- Novel symptoms appear that do not match known diseases.
+
+## Diagnostic Resources
+- Local agricultural extension services
+- University plant diagnostic laboratories
+- National plant protection organisations (e.g., USDA APHIS, EPPO)
+
+## Safety Notice
+This document provides general guidance only. All pesticide applications must follow local label instructions and comply with regulations. This guidance does not replace advice from a qualified agricultural professional. Always identify the disease correctly before initiating a management programme.

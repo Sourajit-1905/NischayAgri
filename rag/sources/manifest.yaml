@@ -1,0 +1,67 @@
+# RAG source corpus manifest.
+# Each entry is a plain-text document in rag/sources/texts/.
+# Fields used for retrieval filtering: crops, diseases, regions.
+
+sources:
+  - id: tomato_early_blight
+    title: "Tomato Early Blight Management"
+    publisher: "Agricultural Extension Service"
+    license: "public_domain"
+    crops: [tomato]
+    diseases: [early_blight]
+    regions: [global]
+    file: texts/tomato_early_blight.txt
+
+  - id: tomato_late_blight
+    title: "Tomato Late Blight Management"
+    publisher: "Agricultural Extension Service"
+    license: "public_domain"
+    crops: [tomato]
+    diseases: [late_blight]
+    regions: [global]
+    file: texts/tomato_late_blight.txt
+
+  - id: potato_blight
+    title: "Potato Blight Control Guide"
+    publisher: "Agricultural Extension Service"
+    license: "public_domain"
+    crops: [potato]
+    diseases: [early_blight, late_blight]
+    regions: [global]
+    file: texts/potato_blight.txt
+
+  - id: apple_diseases
+    title: "Apple Disease Management: Scab, Black Rot, Cedar Apple Rust"
+    publisher: "Agricultural Extension Service"
+    license: "public_domain"
+    crops: [apple]
+    diseases: [apple_scab, black_rot, cedar_apple_rust]
+    regions: [global]
+    file: texts/apple_diseases.txt
+
+  - id: grape_diseases
+    title: "Grape Disease Management: Black Rot, Esca, Leaf Blight"
+    publisher: "Agricultural Extension Service"
+    license: "public_domain"
+    crops: [grape]
+    diseases: [black_rot, esca, leaf_blight]
+    regions: [global]
+    file: texts/grape_diseases.txt
+
+  - id: corn_diseases
+    title: "Corn Disease Management: Common Rust, Gray Leaf Spot, Northern Leaf Blight"
+    publisher: "Agricultural Extension Service"
+    license: "public_domain"
+    crops: [corn_maize]
+    diseases: [common_rust, gray_leaf_spot, northern_leaf_blight]
+    regions: [global]
+    file: texts/corn_diseases.txt
+
+  - id: general_plant_disease
+    title: "General Principles of Plant Disease Management"
+    publisher: "Agricultural Extension Service"
+    license: "public_domain"
+    crops: [all]
+    diseases: [all]
+    regions: [global]
+    file: texts/general_plant_disease.txt

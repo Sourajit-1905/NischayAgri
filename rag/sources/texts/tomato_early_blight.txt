@@ -1,0 +1,33 @@
+# Tomato Early Blight Management
+
+## Overview
+Early blight of tomato is caused by the fungal pathogen Alternaria solani. It is one of the most common foliar diseases of tomato worldwide, occurring wherever tomatoes are grown. The disease can cause significant defoliation and yield loss if not managed promptly.
+
+## Symptoms
+Early blight initially appears as small, dark brown to black lesions on older, lower leaves. Lesions are typically circular to angular and develop characteristic concentric rings, giving them a target-like or bull's-eye appearance. As the disease progresses, lesions enlarge and may coalesce, causing entire leaves to turn yellow and drop prematurely. Severely affected plants may show extensive defoliation from the bottom upward.
+
+## Conditions Favoring Disease
+The disease is favored by warm temperatures (24-29°C), high humidity, and alternating wet and dry periods. Plants under stress from nutrient deficiency, drought, or other factors are more susceptible. The pathogen survives in infected plant debris in the soil and on volunteer tomato plants.
+
+## Management Strategies
+
+### Cultural Practices
+Remove and destroy infected plant debris at the end of the season. Practice crop rotation, avoiding tomato and other solanaceous crops in the same field for at least two years. Stake or cage plants to improve air circulation. Use mulch to reduce splash dispersal of spores from soil to lower leaves. Avoid overhead irrigation; use drip irrigation where possible.
+
+### Resistant Varieties
+Plant resistant or tolerant varieties where available. Resistance to early blight varies among commercial varieties; consult local extension recommendations for varieties suited to your region.
+
+### Fungicide Applications
+Fungicide applications are most effective when initiated early in the season before significant disease development. Apply at first sign of disease or when conditions are favorable. Effective fungicides include:
+- Chlorothalonil (protectant): Apply at 7-10 day intervals during periods of frequent rain or high humidity.
+- Mancozeb (protectant): Apply at 7-10 day intervals.
+- Azoxystrobin (systemic): Apply at 10-14 day intervals; rotate with other fungicide classes to prevent resistance.
+- Copper-based fungicides: Suitable for organic production; apply at 7-10 day intervals.
+
+Always follow label directions for rates, timing, and safety precautions. Rotate fungicide classes to reduce the risk of resistance development.
+
+### Nutrition Management
+Maintain adequate nitrogen levels. Nitrogen-deficient plants are more susceptible to early blight. However, excessive nitrogen promotes lush vegetative growth that may increase disease severity.
+
+## Safety Notice
+All fungicide applications must follow local label instructions and regulations. Consult a qualified agricultural advisor before initiating a treatment program. This guidance is for informational purposes only and does not replace professional advice.

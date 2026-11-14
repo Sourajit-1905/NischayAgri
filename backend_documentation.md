@@ -183,4 +183,31 @@ Contract tests still pass, p95 CPU latency is measured and documented, and malfo
 11. `apps/api/src/cropapi/core/security.py` — EXIF stripping + decompression-bomb protection
 12. Tests + latency measurement
 
+# PHASE 2.7 — RAG Advisor
+
+## What this phase does
+
+Builds the full RAG-based advisor. A source manifest lists reputable agricultural extension sources; an ingestion pipeline chunks them by section, embeds with `sentence-transformers` (local, free), and indexes in a vector store (ChromaDB — local, no cost). `advisor_service` retrieves relevant chunks filtered by crop/disease/region, prompts the Gemini free tier (your stated LLM choice), post-validates that every claim cites a chunk, and returns an `AdviceResponse` whose mode (FULL/LIMITED/EXPERT_REFERRAL) depends on the decision. `rag/eval` measures retrieval hit rate, citation faithfulness, and hallucination on a probe set.
+
+## Done When
+
+Eval metrics are reported and the advisor never produces an uncited treatment claim in the probe set.
+
+## Implementation Order
+
+1. `rag/sources/manifest.yaml` — source registry (titles, URLs, crops, regions)
+2. `rag/ingest/chunker.py` — section-based text chunker with metadata
+3. `rag/ingest/embedder.py` — sentence-transformers local embedding
+4. `rag/ingest/vectorstore.py` — ChromaDB wrapper
+5. `rag/ingest/pipeline.py` — full manifest → chunk → embed → index pipeline
+6. `rag/scripts/ingest.py` — CLI
+7. `apps/api/src/cropapi/adapters/llm/base.py` — provider-agnostic interface
+8. `apps/api/src/cropapi/adapters/llm/gemini.py` — Gemini free-tier adapter
+9. `apps/api/src/cropapi/services/advisor_service.py` — retrieval + prompt + post-validate
+10. `rag/eval/probe_set.yaml` + `metrics.py` + `run_eval.py` — eval suite
+11. Tests
+
+
+
+
 

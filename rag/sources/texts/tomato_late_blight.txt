@@ -1,0 +1,34 @@
+# Tomato Late Blight Management
+
+## Overview
+Late blight, caused by Phytophthora infestans, is a highly destructive disease of tomato and potato. It was responsible for the Irish Potato Famine of the 1840s and remains a serious threat to global food security. Under favorable conditions, the disease can destroy entire fields within days.
+
+## Symptoms
+Late blight produces water-soaked, greasy-appearing lesions on leaves, stems, and fruit. Lesions rapidly enlarge and turn brown to dark brown, often with a pale green to yellow border. Under humid conditions, a white, cottony growth of sporangiophores and sporangia may appear on the underside of lesions. Infected fruit develop firm, brown, greasy lesions that render fruit unmarketable.
+
+## Conditions Favoring Disease
+Late blight thrives under cool, wet conditions: temperatures of 10-25°C with prolonged leaf wetness (greater than 10 hours). It spreads rapidly during rainy periods with cool nights and mild days. Sporangia are dispersed by wind and rain splash over long distances.
+
+## Management Strategies
+
+### Cultural Practices
+Remove and destroy all infected plant tissue immediately. Do not compost infected material. Use certified disease-free seed and transplants. Avoid overhead irrigation. Hill potatoes well to protect tubers. Destroy volunteer potato and tomato plants, which serve as overwintering hosts.
+
+### Resistant Varieties
+Use late blight-resistant varieties where available. Resistance genes (R genes) have been incorporated into commercial varieties, though new races of P. infestans can overcome single R genes. Partial resistance varieties offer more durable protection.
+
+### Fungicide Applications
+Fungicides are essential for late blight management under high disease pressure. Begin applications preventively before disease onset when conditions favor infection. Effective fungicide classes include:
+- Chlorothalonil (protectant): Apply at 5-7 day intervals during high-risk periods.
+- Mancozeb (protectant): Apply at 5-7 day intervals.
+- Metalaxyl/Mefenoxam (systemic): Use only in combination with protectant fungicides; resistance is widespread so do not rely on these products alone.
+- Cymoxanil + Mancozeb (combination): Good performance under high disease pressure.
+- Copper hydroxide or copper oxychloride: Suitable for organic production.
+
+Rotate fungicide classes each application to manage resistance.
+
+### Monitoring
+Monitor fields regularly during cool, wet weather. Use regional late blight forecasting tools (e.g., BLITECAST, TOM-CAST) to time fungicide applications.
+
+## Safety Notice
+All treatments must follow local label instructions. Late blight can spread rapidly; consult a local plant pathologist or extension service immediately if late blight is suspected. Do not delay action.
